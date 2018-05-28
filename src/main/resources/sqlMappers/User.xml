@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxl.miniapi.dao.UserDao">
+
+    <select id="getFirstUserNickName" resultType="String">
+        SELECT nickname from `User` limit 1
+    </select>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId"
+            parameterType="com.lxl.miniapi.model.User">
+        INSERT INTO `User` ( `nickName`,  `head`, `createTime`)
+        VALUES (#{nickName},#{head},now());
+
+    </insert>
+
+    <select id="getUserById" resultType="com.lxl.miniapi.model.User">
+        SELECT userId,nickName,trueName,head,createTime,`status` FROM `User` WHERE userId = #{userId} limit 1
+    </select>
+
+    <select id="getUsers" resultType="com.lxl.miniapi.model.User">
+        SELECT userId,nickName,head FROM `User` WHERE `status` = 1
+    </select>
+</mapper>
